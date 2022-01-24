@@ -9,6 +9,8 @@
 #include "afxdialogex.h"
 #include "CData.h"
 #include "math.h"
+#include "CLSLADialog.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -83,6 +85,8 @@ BEGIN_MESSAGE_MAP(CMFCGraphDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMFCGraphDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMFCGraphDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMFCGraphDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMFCGraphDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -187,9 +191,9 @@ void CMFCGraphDlg::OnBnClickedButton2()
 {
 	// TODO: Fügen Sie hier Ihren Handlercode für Benachrichtigungen des Steuerelements ein.
 	UpdateData(true);
-	CData DataWerte(400);
+	CData DataWerte(600);
 	const double pi = 3.1415;
-	for (int t = 0; t < 400; t++)
+	for (int t = 0; t < 600; t++)
 	{
 		double y = Amplitude * sin(2 * pi * frequence * t) + offset;
 		DataWerte.setDataWerte(t, t, y);
@@ -200,5 +204,56 @@ void CMFCGraphDlg::OnBnClickedButton2()
 	g.setXmax(Xmax);
 	g.setYmin(Ymin);
 	g.setYmax(Ymax);
+
+}
+
+
+void CMFCGraphDlg::OnBnClickedButton3()
+{
+	// TODO: Fügen Sie hier Ihren Handlercode für Benachrichtigungen des Steuerelements ein.
+	CColorDialog dlg;
+	if (dlg.DoModal() == IDOK) 
+	{
+		g.setFarbe(dlg.GetColor());
+	}
+}
+
+
+void CMFCGraphDlg::OnBnClickedButton4()
+{
+	// TODO: Fügen Sie hier Ihren Handlercode für Benachrichtigungen des Steuerelements ein.
+	CLSLADialog dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+		UINT LA = PS_SOLID;
+		g.setLinienStaerke(dlg.getLstaerke());
+		CString la(dlg.getComboWert());
+		if (la == "PS_DASH")
+		{
+			LA = PS_DASH;
+		}
+		
+		else if (la == "PS_SOLID")
+		{
+			LA = PS_SOLID;
+		}
+
+		else if (la == "PS_DOT")
+		{
+			LA = PS_DOT;
+		}
+
+		else if (la == "PS_DASHDOT")
+		{
+			LA = PS_DASHDOT;
+		}
+
+		else if (la == "PS_DASHDOTDOT")
+		{
+			LA = PS_DASHDOTDOT;
+		}
+
+		g.setLinienArt(LA);
+	}
 
 }

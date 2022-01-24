@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "StdAfx.h"
 #include "CGraph.h"
+#include "CLSLADialog.h"
+#define DATA_LEN 600
 
 CGraph::CGraph(void)
 	:height(300)
@@ -9,6 +11,13 @@ CGraph::CGraph(void)
 	,Xmax(0)
 	,Ymin(0)
 	,Ymax(0)
+	,startX(0)
+	,startY(0)
+	,orgX(0)
+	,orgY(0)
+	,Farbe(RGB(0,255,255))
+	,LinieStaerke(2)
+	,LinienArt()
 {}
 
 CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width)
@@ -19,9 +28,15 @@ CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _h
 	Ymax   = _Ymax;
 	height = _height;
 	width  = _width;
-	orgX   = leftMargin;
-	orgY   = upperMargin;
+	startX = 0;
+	startY = 0;
+	orgX   = startX + leftMargin;
+	orgY   = startY + upperMargin;
+}
 
+void CGraph::setFarbe(COLORREF _farbe)
+{
+	Farbe = _farbe;
 }
 
 void CGraph::setXmin(double _Xmin)
@@ -59,9 +74,34 @@ void CGraph::setWerte(CData _Werte)
 	Werte = _Werte;
 }
 
+void CGraph::setLinienStaerke(double ls)
+{
+	LinieStaerke = ls;
+}
+
+void CGraph::setLinienArt(UINT la)
+{
+	LinienArt = la;
+}
+
 CData CGraph::getWerte(void)const
 {
 	return Werte;
+}
+
+COLORREF CGraph::getFarbe()
+{
+	return Farbe;
+}
+
+double CGraph::getLinienStaerke(void) const
+{
+	return LinieStaerke;
+}
+
+UINT CGraph::getLinienArt(void) const
+{
+	return LinienArt;
 }
 
 double CGraph::getXmin(void) const
@@ -100,24 +140,30 @@ void CGraph::draw(CDC* pDc)
 
 	CBrush backGrnd(RGB(255, 255, 255));
 	pDc->SelectObject(&backGrnd);
-	pDc->Rectangle(20, 20, 550, 400);
+	pDc->Rectangle(20, 20, width, height);
 	// Koordinatenachsen x und y zeichnen
-	const CString cs("Xmin");
-	const CString cs1("Xmax");
-	const CString cs2("Ymin");
-	const CString cs3("Ymax");
-	pDc->MoveTo(20 + leftMargin, 400 / 2);
-	pDc->TextOutW(20 + leftMargin, 400 / 2, cs);
-	pDc->TextOutW(520 - leftMargin, 400 / 2, cs1);
-	pDc->LineTo(550 - leftMargin, 400 / 2);
+	pDc->MoveTo(20 + leftMargin, height / 2);
+	pDc->LineTo(width - leftMargin, height / 2);
 	pDc->MoveTo(20 + leftMargin, 20 + upperMargin);
-	pDc->TextOutW(20 + leftMargin, 20 + upperMargin, cs3);
-	pDc->LineTo(20 + leftMargin, 400 - upperMargin);
-	pDc->TextOutW(20 + leftMargin, 400 - upperMargin, cs2);
+	pDc->LineTo(20 + leftMargin, height - upperMargin);
+	
 
 	// WerteVerlauf
-	//aufoassen, ob die Werte im Rechteck sind oder außerhalb
+	//aufpassen, ob die Werte im Rechteck sind oder außerhalb
+	CPen pen(LinienArt, LinieStaerke, Farbe);
+	pDc->SelectObject(&pen);
 
+	for (int i = 1; i < DATA_LEN; i++)
+	{
+		if ((Xmin < *(Werte.getXWerte() + i) && (Xmax > *(Werte.getXWerte() + i))) && ((Ymin < *(Werte.getYWerte() + i) && (Ymax > *(Werte.getYWerte() + i)))))
+		{
+			int X = math2GrafikX(*(Werte.getXWerte() + i));
+			int Y = math2GrafikY(*(Werte.getYWerte() + i));
+			pDc->MoveTo(math2GrafikX(*(Werte.getXWerte() + i - 1)), math2GrafikY(*(Werte.getYWerte() + i - 1)));
+			pDc->ArcTo(X - 0.1, Y - 0.1, X + 0.1, Y + 0.1, X,Y,X,Y);
+			//pDc -> LineTo(X, Y);
+		}
+	}
 
 }
 

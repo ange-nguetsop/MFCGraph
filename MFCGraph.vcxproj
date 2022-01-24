@@ -185,16 +185,19 @@
   <ItemGroup>
     <ClInclude Include="CData.h" />
     <ClInclude Include="CGraph.h" />
+    <ClInclude Include="CLSLADialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFCGraph.h" />
     <ClInclude Include="MFCGraphDlg.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CData.cpp" />
     <ClCompile Include="CGraph.cpp" />
+    <ClCompile Include="CLSLADialog.cpp" />
     <ClCompile Include="MFCGraph.cpp" />
     <ClCompile Include="MFCGraphDlg.cpp" />
     <ClCompile Include="pch.cpp">

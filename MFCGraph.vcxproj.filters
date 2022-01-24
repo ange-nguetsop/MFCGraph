@@ -39,6 +39,12 @@
     <ClInclude Include="CData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="CLSLADialog.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCGraph.cpp">
@@ -54,6 +60,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="CData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CLSLADialog.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
