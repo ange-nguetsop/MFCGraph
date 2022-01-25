@@ -13,8 +13,6 @@ protected:
 	double width;
 	double orgX;
 	double orgY;
-	double startX;
-	double startY;
 	COLORREF Farbe;
 	UINT LinienArt;
 	double LinieStaerke;

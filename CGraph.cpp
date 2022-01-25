@@ -11,13 +11,11 @@ CGraph::CGraph(void)
 	,Xmax(0)
 	,Ymin(0)
 	,Ymax(0)
-	,startX(0)
-	,startY(0)
 	,orgX(20 + leftMargin)
 	,orgY(0)
 	,Farbe(RGB(0,255,255))
 	,LinieStaerke(2)
-	,LinienArt()
+	,LinienArt(PS_SOLID)
 {}
 
 CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width)
@@ -28,10 +26,12 @@ CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _h
 	Ymax   = _Ymax;
 	height = _height;
 	width  = _width;
-	startX = 0;
-	startY = 0;
-	orgX   = startX + leftMargin;
-	orgY   = startY + upperMargin;
+	orgX   =  20 + leftMargin;
+	orgY   =  0;
+	Farbe = RGB(0, 255, 255);
+	LinieStaerke = 2;
+	LinienArt = PS_SOLID;
+	Werte = CData(0);
 }
 
 void CGraph::setFarbe(COLORREF _farbe)
