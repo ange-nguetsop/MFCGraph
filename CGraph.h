@@ -7,35 +7,34 @@ protected:
 	double Xmax;
 	double Ymin;
 	double Ymax;
-	const double leftMargin = 30;
-	const double upperMargin = 30;
-	double height;
-	double width;
-	double orgX;
-	double orgY;
+	const int leftMargin = 30;
+	const int upperMargin = 30;
+	int height;
+	int width;
+	int orgX;
+	int orgY;
 	COLORREF Farbe;
 	UINT LinienArt;
-	double LinieStaerke;
+	int LinieStaerke;
 	CData Werte ;
 public:
 
 	CGraph(void);
-	CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width);
+	CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, int _height, int _width);
 	void setFarbe(COLORREF _farbe);
 	
 	void setXmin(double _Xmin);
 	void setYmin(double _Ymin);
 	void setXmax(double _Xmax);
-	void setAmplitude(double _a);
 	void setYmax(double _Ymax);
-	void setHeight(double _Height);
-	void setWidth(double _width);
+	void setHeight(int _Height);
+	void setWidth(int _width);
 	void setWerte(CData _Werte);
-	void setLinienStaerke(double ls);
+	void setLinienStaerke(int ls);
 	void setLinienArt(UINT la);
 	CData getWerte(void)const;
 	COLORREF getFarbe();
-	double getLinienStaerke(void)const;
+	int getLinienStaerke(void)const;
 
 	UINT getLinienArt(void)const;
 	
@@ -43,8 +42,8 @@ public:
 	double getYmin(void)const;
 	double getXmax(void)const;
 	double getYmax(void)const;
-	double getHeight(void)const;
-	double getWidth(void)const;
+	int getHeight(void)const;
+	int getWidth(void)const;
 
 
 	void draw(CDC* pDc);

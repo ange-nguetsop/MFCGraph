@@ -207,8 +207,6 @@ void CMFCGraphDlg::OnBnClickedButton2()
 	g.setXmax(Xmax);
 	g.setYmin(Ymin);
 	g.setYmax(Ymax);
-	g.setAmplitude(Amplitude);
-	g.setOffset(offset);
 }
 
 

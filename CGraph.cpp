@@ -18,7 +18,7 @@ CGraph::CGraph(void)
 	,LinienArt(PS_SOLID)
 {}
 
-CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width)
+CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, int _height, int _width)
 {
 	Xmin   = _Xmin;
 	Xmax   = _Xmax;
@@ -60,13 +60,13 @@ void CGraph::setYmax(double _Ymax)
 	Ymax = _Ymax;
 }
 
-void CGraph::setHeight(double _Height)
+void CGraph::setHeight(int _Height)
 {
 	height = _Height;
 }
 
 
-void CGraph::setWidth(double _width)
+void CGraph::setWidth(int _width)
 {
 	width = _width;
 }
@@ -76,7 +76,7 @@ void CGraph::setWerte(CData _Werte)
 	Werte = _Werte;
 }
 
-void CGraph::setLinienStaerke(double ls)
+void CGraph::setLinienStaerke(int ls)
 {
 	LinieStaerke = ls;
 }
@@ -96,7 +96,7 @@ COLORREF CGraph::getFarbe()
 	return Farbe;
 }
 
-double CGraph::getLinienStaerke(void) const
+int CGraph::getLinienStaerke(void) const
 {
 	return LinieStaerke;
 }
@@ -128,12 +128,12 @@ double CGraph::getYmax(void) const
 }
 
 
-double CGraph::getHeight(void) const
+int CGraph::getHeight(void) const
 {
 	return height;
 }
 
-double CGraph::getWidth(void) const
+int CGraph::getWidth(void) const
 {
 	return width;
 }
