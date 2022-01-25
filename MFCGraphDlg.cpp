@@ -193,10 +193,13 @@ void CMFCGraphDlg::OnBnClickedButton2()
 	UpdateData(true);
 	CData DataWerte(600);
 	const double pi = 3.1415;
+	double zeit = Xmin;
+	double delta = (Xmax - Xmin) / 600;
 	for (int t = 0; t < 600; t++)
 	{
-		double y = Amplitude * sin(2 * pi * frequence * t) + offset;
-		DataWerte.setDataWerte(t, t, y);
+		double y = Amplitude * sin(2 * pi * frequence * zeit) + offset;
+		DataWerte.setDataWerte(t, zeit, y);
+		zeit += delta;
 	}
     
     g.setWerte(DataWerte);
@@ -204,7 +207,8 @@ void CMFCGraphDlg::OnBnClickedButton2()
 	g.setXmax(Xmax);
 	g.setYmin(Ymin);
 	g.setYmax(Ymax);
-
+	g.setAmplitude(Amplitude);
+	g.setOffset(offset);
 }
 
 

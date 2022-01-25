@@ -13,11 +13,13 @@ CGraph::CGraph(void)
 	,Ymax(0)
 	,startX(0)
 	,startY(0)
-	,orgX(0)
+	,orgX(20 + leftMargin)
 	,orgY(0)
 	,Farbe(RGB(0,255,255))
 	,LinieStaerke(2)
 	,LinienArt()
+	,Amplitude(0)
+	,Offset(0)
 {}
 
 CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width)
@@ -49,6 +51,11 @@ void CGraph::setYmin(double _Ymin)
 	Ymin = _Ymin;
 }
 
+void CGraph::setOffset(double o)
+{
+	Offset = o;
+}
+
 void CGraph::setXmax(double _Xmax)
 { 
 	Xmax = _Xmax;
@@ -62,6 +69,11 @@ void CGraph::setYmax(double _Ymax)
 void CGraph::setHeight(double _Height)
 {
 	height = _Height;
+}
+
+void CGraph::setAmplitude(double _a)
+{
+	Amplitude = _a;
 }
 
 void CGraph::setWidth(double _width)
@@ -119,9 +131,19 @@ double CGraph::getXmax(void) const
 	return Xmax;
 }
 
+double CGraph::getAmplitude(void) const
+{
+	return Amplitude;
+}
+
 double CGraph::getYmax(void) const
 {
 	return Ymax;
+}
+
+double CGraph::getOffset(void) const
+{
+	return Offset;
 }
 
 double CGraph::getHeight(void) const
@@ -136,16 +158,17 @@ double CGraph::getWidth(void) const
 
 void CGraph::draw(CDC* pDc)
 {
-	// weißes Rechteck als Hintergrund zeichnen
+	// weißes Rechteck als Hintergrund zeichnent
 
 	CBrush backGrnd(RGB(255, 255, 255));
 	pDc->SelectObject(&backGrnd);
 	pDc->Rectangle(20, 20, width, height);
 	// Koordinatenachsen x und y zeichnen
-	pDc->MoveTo(20 + leftMargin, height / 2);
-	pDc->LineTo(width - leftMargin, height / 2);
 	pDc->MoveTo(20 + leftMargin, 20 + upperMargin);
 	pDc->LineTo(20 + leftMargin, height - upperMargin);
+	pDc->MoveTo(20 + leftMargin, height/2);
+	pDc->LineTo(width -leftMargin , height/ 2);
+	
 	
 
 	// WerteVerlauf
@@ -153,17 +176,27 @@ void CGraph::draw(CDC* pDc)
 	CPen pen(LinienArt, LinieStaerke, Farbe);
 	pDc->SelectObject(&pen);
 
-	for (int i = 1; i < DATA_LEN; i++)
-	{
-		if ((Xmin < *(Werte.getXWerte() + i) && (Xmax > *(Werte.getXWerte() + i))) && ((Ymin < *(Werte.getYWerte() + i) && (Ymax > *(Werte.getYWerte() + i)))))
+		for (int i = 1; i < DATA_LEN; i++)
 		{
-			int X = math2GrafikX(*(Werte.getXWerte() + i));
-			int Y = math2GrafikY(*(Werte.getYWerte() + i));
-			pDc->MoveTo(math2GrafikX(*(Werte.getXWerte() + i - 1)), math2GrafikY(*(Werte.getYWerte() + i - 1)));
-			pDc->ArcTo(X - 0.1, Y - 0.1, X + 0.1, Y + 0.1, X,Y,X,Y);
-			//pDc -> LineTo(X, Y);
+			if ((Xmin < *(Werte.getXWerte() + i) && (Xmax > *(Werte.getXWerte() + i))) && ((Ymin < *(Werte.getYWerte() + i) && (Ymax > *(Werte.getYWerte() + i)))))
+			{
+				int Xs = math2GrafikX(*(Werte.getXWerte() + i));
+				int Ys = math2GrafikY(*(Werte.getYWerte() + i));
+				int Xa = math2GrafikX(*(Werte.getXWerte() + i - 1));
+				int Ya = math2GrafikY(*(Werte.getYWerte() + i - 1));
+				if ((Ya >= 50 && Ya <= 270) && Xa< (width-leftMargin))
+				{
+					if ((Ys >= 50 && Ys <= 270) && Xs < (width - leftMargin))
+					{
+						pDc->MoveTo(Xa, Ya);
+						//pDc->ArcTo(X - 0.1, Y - 0.1, X + 0.1, Y + 0.1, X,Y,X,Y);
+						pDc->LineTo(Xs, Ys);
+					}
+				}
+			}
 		}
-	}
+	
+
 
 }
 
