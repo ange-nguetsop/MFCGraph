@@ -15,18 +15,16 @@ protected:
 	double orgY;
 	double startX;
 	double startY;
-	double Amplitude;
 	COLORREF Farbe;
 	UINT LinienArt;
 	double LinieStaerke;
 	CData Werte ;
-	double Offset;
 public:
 
 	CGraph(void);
 	CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width);
 	void setFarbe(COLORREF _farbe);
-	void setOffset(double o);
+	
 	void setXmin(double _Xmin);
 	void setYmin(double _Ymin);
 	void setXmax(double _Xmax);
@@ -40,9 +38,9 @@ public:
 	CData getWerte(void)const;
 	COLORREF getFarbe();
 	double getLinienStaerke(void)const;
-	double getOffset(void)const;
+
 	UINT getLinienArt(void)const;
-	double getAmplitude(void)const;
+	
 	double getXmin(void) const;
 	double getYmin(void)const;
 	double getXmax(void)const;

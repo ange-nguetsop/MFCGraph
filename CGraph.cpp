@@ -18,8 +18,6 @@ CGraph::CGraph(void)
 	,Farbe(RGB(0,255,255))
 	,LinieStaerke(2)
 	,LinienArt()
-	,Amplitude(0)
-	,Offset(0)
 {}
 
 CGraph::CGraph(double _Xmin, double _Xmax, double _Ymin, double _Ymax, double _height, double _width)
@@ -51,10 +49,6 @@ void CGraph::setYmin(double _Ymin)
 	Ymin = _Ymin;
 }
 
-void CGraph::setOffset(double o)
-{
-	Offset = o;
-}
 
 void CGraph::setXmax(double _Xmax)
 { 
@@ -71,10 +65,6 @@ void CGraph::setHeight(double _Height)
 	height = _Height;
 }
 
-void CGraph::setAmplitude(double _a)
-{
-	Amplitude = _a;
-}
 
 void CGraph::setWidth(double _width)
 {
@@ -131,20 +121,12 @@ double CGraph::getXmax(void) const
 	return Xmax;
 }
 
-double CGraph::getAmplitude(void) const
-{
-	return Amplitude;
-}
 
 double CGraph::getYmax(void) const
 {
 	return Ymax;
 }
 
-double CGraph::getOffset(void) const
-{
-	return Offset;
-}
 
 double CGraph::getHeight(void) const
 {
